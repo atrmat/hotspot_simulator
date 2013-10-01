@@ -11,9 +11,9 @@ the hotspot_simulator contains three parts:
 
 2. parser -- my_parse, my_parse.cpp
    parse the file hotspot.txt and the data-placement-information.csv, then calculates the OSD's PV, 
-   output to the file hotOSD.result
+   output to the file hotOSD.csv, the object PV output to the file visitObject.csv.
 
 3. main simulator -- hotOSD_simulator.sh,
    that calls the random number generator, and use crushtool to build a map file tmp.map, then placement objects.
-   finally calls the parser to output the result file -- hotOSD.result.
+   finally calls the parser to output the result file -- hotOSD.csv, and the object PV result is in file -- visitObject.csv.
 
