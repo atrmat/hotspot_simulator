@@ -41,9 +41,12 @@ int main(int argc, char * argv[])
 	}
 	ofstream outf;
 	outf.open(argv[4]);
+	int min = 0, max = 0;
+	min = atoi(argv[2]);
+	max = atoi(argv[3]);
 	//outf.open("hotspot.txt");
 	for (int i =0 ;i < atoi(argv[1]); i++){
-		tmp = NormalRandom(0,1,atoi(argv[2]),atoi(argv[3]));
+		tmp = NormalRandom(abs(max - min)/2,1,min,max);
 		cout << tmp << endl;
 		outf << tmp << endl;
 		//outf << tmp << "," << endl;

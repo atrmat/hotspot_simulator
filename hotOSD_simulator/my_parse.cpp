@@ -12,9 +12,9 @@ using namespace std;
 */
 int osdNum = -1;
 int objectID = 0;
-int visitObject[1025] = {0};
-int primaryOSD[1025] = {0};
-int hotOSDList[1025] = {0};
+int visitObject[10250] = {0};
+int primaryOSD[10250] = {0};
+int hotOSDList[10250] = {0};
 char tmp[100];
 /*
 void split(const string& src, const string& delim, vector<string>& dest)
@@ -44,8 +44,16 @@ void split(const string& src, const string& delim, vector<string>& dest)
 	dest.push_back(substr);
 }
 */
-int main()
+int main(int argc, char* argv[])
 {
+	if(argc < 2){
+		cout<<"no enough args! argv[1] is the [osd num]"<<endl;
+		return -1;
+	}
+	if(atoi(argv[1]) <= 0){
+		cout << "argv[1] is the osd num, should be > 0!"<<endl;
+		return -1;
+	}
 	ifstream hotspot("hotspot.txt", ios::in);
 	vector<string> hotspots;
 	string textline0;
@@ -58,6 +66,7 @@ int main()
 			//split(textline0, delim0, hotspots);
 			strncpy(tmp,textline0.c_str(),textline0.length());
 			visitObject[i] = atoi(tmp);
+			//visitObject[i] = abs(atoi(tmp));
 			//cout << visitObject[i] << endl;
 			i++;
 		}
@@ -109,8 +118,8 @@ int main()
 	}
 	
 	ofstream outf;
-	outf.open("hotOSD.result");
-	for (int j = 0; j < i; j++){
+	outf.open("hotOSD.result.csv");
+	for (int j = 0; j < atoi(argv[1]); j++){
 		outf << hotOSDList[j]<<endl;
 	}
 	outf.close();
