@@ -2,8 +2,8 @@
 # random the visit num of each object
 objNum=10240
 g++ my_rand_machine.cpp -lm -o my_rand_machine
-#random $objNum range from [50,100000]
-./my_rand_machine $objNum 50 1000000 hotspot.txt
+# $objNum random visit [0 - $objNum-1]
+./my_rand_machine $objNum 0 $objNum-1 hotspot.txt
 #./my_rand_machine 1024 50 100 hotspot.txt
 
 #for line in $(cat hotspot.txt)

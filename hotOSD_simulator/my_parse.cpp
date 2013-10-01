@@ -11,10 +11,9 @@ using namespace std;
 @in_out, dest: 保存分割后的每个字符串
 */
 int osdNum = -1;
-int objectID = 0;
 int visitObject[10250] = {0};
 int primaryOSD[10250] = {0};
-int hotOSDList[10250] = {0};
+double hotOSDList[10250] = {0};
 char tmp[100];
 /*
 void split(const string& src, const string& delim, vector<string>& dest)
@@ -64,7 +63,8 @@ int main(int argc, char* argv[])
 		{
 			getline(hotspot, textline0);
 			//split(textline0, delim0, hotspots);
-			strncpy(tmp,textline0.c_str(),textline0.length());
+			strcpy(tmp,textline0.c_str());
+			//strncpy(tmp,textline0.c_str(),textline0.length());
 			visitObject[i] = atoi(tmp);
 			//visitObject[i] = abs(atoi(tmp));
 			//cout << visitObject[i] << endl;
@@ -104,7 +104,7 @@ int main(int argc, char* argv[])
 				//cout << primaryOSD << endl;
 				strcpy(tmp,priOSD.c_str());// why strncpy is wrong?
 				//cout << tmp<<endl;
-				primaryOSD[i++]= atoi(tmp);
+				primaryOSD[i++]= atoi(tmp)%atoi(argv[1]);
 				//cout << primaryOSD[i] << endl;
 			}
 		}
@@ -113,16 +113,31 @@ int main(int argc, char* argv[])
 	infile.close();
 	for (int j = 0; j < i; j++){
 //		cout << visitObject[j] << endl;
-		hotOSDList[primaryOSD[j]] += visitObject[j];
-		//cout << "obj " << j << " put in primary OSD: " << primaryOSD[j]<<endl;
+		cout << "obj " << visitObject[j] << endl; 
+		hotOSDList[primaryOSD[visitObject[j]]] += visitObject[j]*visitObject[j];
+		cout << " put in primary OSD: " << primaryOSD[visitObject[j]]<<endl;
 	}
 	
 	ofstream outf;
-	outf.open("hotOSD.result.csv");
+	outf.open("hotOSD.csv");
+	outf<< "OSD,pv"<<endl;
 	for (int j = 0; j < atoi(argv[1]); j++){
-		outf << hotOSDList[j]<<endl;
+		outf <<j<<","<<hotOSDList[j]<<endl;
 	}
 	outf.close();
+
+//debug	
+	ofstream outf2;
+	outf2.open("visitObject.csv");
+	outf2<<"obj,pv"<<endl;
+	double count[10250] = {0};
+	for (int j = 0; j < i; j++){
+		count[visitObject[j]] = visitObject[j]*visitObject[j];
+	}
+	for (int j = 0; j < i; j++){
+		outf2<<j<<","<<count[j]<<endl;
+	}
+
 /*
 	vector<string>::iterator iter = results.begin();
 	while(iter != results.end())

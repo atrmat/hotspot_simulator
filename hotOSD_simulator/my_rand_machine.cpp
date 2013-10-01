@@ -10,9 +10,9 @@ double AverageRandom(double min,double max)
 	int minInteger = (int)(min*10000);
 	int maxInteger = (int)(max*10000);
 	int randInteger = rand()*rand();
-	int diffInteger = maxInteger - minInteger;
+	int diffInteger = abs(maxInteger - minInteger);
 	int resultInteger = randInteger % diffInteger + minInteger;
-	return resultInteger/10000.0;
+	return abs(resultInteger/10000.0);
 }
 double Normal(double x, double miu, double sigma)
 {
