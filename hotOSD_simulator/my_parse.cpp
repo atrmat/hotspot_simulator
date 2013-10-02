@@ -111,10 +111,23 @@ int main(int argc, char* argv[])
 	}
 	cout << "i: "<<--i<<endl;
 	infile.close();
+	//debug	
+	ofstream outf2;
+	outf2.open("visitObject.csv");
+	outf2<<"obj,pv"<<endl;
+	double count[10250] = {0};
+	for (int j = 0; j < i; j++){
+		count[visitObject[j]] = abs(visitObject[j]*rand());
+	}
+	for (int j = 0; j < i; j++){
+		outf2<<j<<","<<count[j]<<endl;
+	}
+	outf2.close();
 	for (int j = 0; j < i; j++){
 //		cout << visitObject[j] << endl;
 		cout << "obj " << visitObject[j] << endl; 
-		hotOSDList[primaryOSD[visitObject[j]]] += visitObject[j]*visitObject[j];
+		hotOSDList[primaryOSD[visitObject[j]]] += count[visitObject[j]];
+		//hotOSDList[primaryOSD[visitObject[j]]] += visitObject[j]*visitObject[j];
 		cout << " put in primary OSD: " << primaryOSD[visitObject[j]]<<endl;
 	}
 	
@@ -126,17 +139,6 @@ int main(int argc, char* argv[])
 	}
 	outf.close();
 
-//debug	
-	ofstream outf2;
-	outf2.open("visitObject.csv");
-	outf2<<"obj,pv"<<endl;
-	double count[10250] = {0};
-	for (int j = 0; j < i; j++){
-		count[visitObject[j]] = visitObject[j]*visitObject[j];
-	}
-	for (int j = 0; j < i; j++){
-		outf2<<j<<","<<count[j]<<endl;
-	}
 
 /*
 	vector<string>::iterator iter = results.begin();
