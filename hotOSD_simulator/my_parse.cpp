@@ -4,45 +4,12 @@
 #include <vector>
 #include <fstream>
 using namespace std;
-
-/*
-@in, src: 待分割的字符串
-@in, delim: 分隔符字符串
-@in_out, dest: 保存分割后的每个字符串
-*/
+#define N 10250
 int osdNum = -1;
-int visitObject[10250] = {0};
-int primaryOSD[10250] = {0};
-double hotOSDList[10250] = {0};
+int visitObject[N] = {0};
+int primaryOSD[N] = {0};
+double hotOSDList[N] = {0};
 char tmp[100];
-/*
-void split(const string& src, const string& delim, vector<string>& dest)
-{
-	string str = src;
-	string::size_type start = 0, index;
-	string substr;
-	osdNum = -1;
-	index = str.find_first_of(delim, start);	//在str中查找(起始：start) delim的任意字符的第一次出现的位置
-	while(index != string::npos)
-	{
-		substr = str.substr(start, index-start);
-		dest.push_back(substr);
-		if(++osdNum == 1 ){// the first osd is visited
-			char temp[20];
-			strncpy(temp,substr.c_str(),substr.length());
-			cout<< atoi(temp) <<" "<< substr << endl;	
-		}
-		start = str.find_first_not_of(delim, index);	//在str中查找(起始：index) 第一个不属于delim的字符出现的位置
-		if(start == string::npos) {
-			return;
-		}
-		index = str.find_first_of(delim, start);
-	}
-	index = str.find_first_of("\n", start);
-	substr = str.substr(start, index-start);
-	dest.push_back(substr);
-}
-*/
 int main(int argc, char* argv[])
 {
 	if(argc < 2){
@@ -114,15 +81,22 @@ int main(int argc, char* argv[])
 	//debug	
 	ofstream outf2;
 	outf2.open("visitObject.csv");
-	outf2<<"obj,pv"<<endl;
-	double count[10250] = {0};
+	double count[N] = {0};
+	int hotNum = 0;
 	for (int j = 0; j < i; j++){
-		count[visitObject[j]] = abs(visitObject[j]*rand());
+		if (visitObject[j]%11 == 0)
+			count[visitObject[j]] = abs(visitObject[j]*rand());
 	}
+	outf2<<"obj,pv"<<endl;
 	for (int j = 0; j < i; j++){
 		outf2<<j<<","<<count[j]<<endl;
+		if (count[j] != 0){
+			hotNum ++;
+		}
 	}
+	outf2<<"total object: "<<i<<" "<<" hot object: "<<hotNum<<endl;
 	outf2.close();
+	hotNum = 0;
 	for (int j = 0; j < i; j++){
 //		cout << visitObject[j] << endl;
 		cout << "obj " << visitObject[j] << endl; 
@@ -136,7 +110,11 @@ int main(int argc, char* argv[])
 	outf<< "OSD,pv"<<endl;
 	for (int j = 0; j < atoi(argv[1]); j++){
 		outf <<j<<","<<hotOSDList[j]<<endl;
+		if (hotOSDList[j] != 0){
+			hotNum ++;
+		}
 	}
+	outf<<"total OSD: "<<atoi(argv[1])<<" "<<"hot OSD: "<<hotNum<<endl;
 	outf.close();
 
 
