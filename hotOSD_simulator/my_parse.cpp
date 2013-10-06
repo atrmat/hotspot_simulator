@@ -76,7 +76,8 @@ int main(int argc, char* argv[])
 			}
 		}
 	}
-	cout << "i: "<<--i<<endl;
+	i--;
+	cout << "i: "<<i--<<endl;
 	infile.close();
 	//debug	
 	ofstream outf2;
@@ -94,7 +95,7 @@ int main(int argc, char* argv[])
 			hotNum ++;
 		}
 	}
-	outf2<<"total object: "<<i<<" "<<" hot object: "<<hotNum<<endl;
+	outf2<<"total object: "<<i<<" "<<" hot object: "<<hotNum<<" "<<((double)hotNum/i)<<"%"<<endl;
 	outf2.close();
 	hotNum = 0;
 	for (int j = 0; j < i; j++){

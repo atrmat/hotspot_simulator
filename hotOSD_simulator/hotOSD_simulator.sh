@@ -16,8 +16,14 @@ rm tmp.map
 #crushtool --build --num_osds 16 host straw 2 rack straw 2 cabinet straw 2 root straw 0 -o tmp.map
 crushtool --build --num_osds 128 host straw 8 rack straw 4 cabinet straw 2 root straw 0 -o tmp.map
 
-#decompile the map : crushtool -d tmp.map -o tmp.map
-#compile the map : crushtool -c tmp.map -o tmp.map
+#decompile the map 
+crushtool -d tmp.map -o decompile-crushmap
+#compile the map : crushtool -c tmp.map -o compile-crushmap
+
+# output the current osd tree
+osdmaptool --createsimple 128 tmp.osdmap --clobber
+osdmaptool tmp.osdmap --import-crush tmp.map
+osdmaptool tmp.osdmap --tree > osdtree
 
 ## output the placement information to the data-placement-information.csv, set the replica num is 3 , obj from 0 to 10240
 rm *.csv
