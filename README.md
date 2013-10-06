@@ -20,6 +20,7 @@ the hotspot_simulator contains three parts:
 
 
 More info:
+
 0. crushmap: http://ceph.com/docs/master/rados/operations/crush-map/
 
 1. crushmaptool: http://ceph.com/docs/next/man/8/crushtool/
