@@ -20,5 +20,8 @@ the hotspot_simulator contains three parts:
 
 
 More info:
-crushmaptool: http://ceph.com/docs/next/man/8/crushtool/
-osdmaptool: http://ceph.com/docs/next/man/8/osdmaptool/
+0. crushmap: http://ceph.com/docs/master/rados/operations/crush-map/
+
+1. crushmaptool: http://ceph.com/docs/next/man/8/crushtool/
+
+2. osdmaptool: http://ceph.com/docs/next/man/8/osdmaptool/
