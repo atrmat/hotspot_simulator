@@ -11,8 +11,12 @@ double AverageRandom(double min,double max)
 	int maxInteger = (int)(max*10000);
 	int randInteger = rand()*rand();
 	int diffInteger = abs(maxInteger - minInteger);
-	int resultInteger = randInteger % diffInteger + minInteger;
-	return abs(resultInteger/10000.0);
+	int resultInteger = 0;
+	if (0 != diffInteger){
+		int resultInteger = randInteger % diffInteger + minInteger;
+		return abs(resultInteger/10000.0);
+	}
+	return minInteger;
 }
 double Normal(double x, double miu, double sigma)
 {
@@ -44,11 +48,13 @@ int main(int argc, char * argv[])
 	int min = 0, max = 0;
 	min = atoi(argv[2]);
 	max = atoi(argv[3]);
+	int avg = (max+min)/2;
 	//outf.open("hotspot.txt");
-	for (int i =0 ;i < atoi(argv[1]); i++){
-		tmp = NormalRandom(abs(max - min)/2,1,min,max);
+	for (int i =1 ;i <= atoi(argv[1]); i++){
+		//tmp = NormalRandom(-(i-avg)*(i-avg)+max*max,1,min,avg);
+		//tmp = NormalRandom(abs(max + min)/2,1,min,max);
 		cout << tmp << endl;
-		outf << tmp << endl;
+		outf << tmp <<","<< endl;
 		//outf << tmp << "," << endl;
 	}
 	outf.close();
