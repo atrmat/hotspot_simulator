@@ -11,11 +11,12 @@ the hotspot_simulator contains three parts:
    that outputs the file hotspot.txt as the simulator of large amount visit on each object.
    my_rand_machine1 is other way to produce random number.
    my_gaussrand is the gauss method to produce random numbers.
+   
 2. parser -- my_parse.cpp
 
    parse the file hotspot.txt and the data-placement-information.csv, then calculates the OSD's PV, 
    output to the file hotOSD.csv, the object PV output to the file visitObject.csv , 
-   and the crushmap(decompile), osdtree of current crushmap.
+   and the crushmap(decompile), osdtree of current crushmap, and timePeriod.csv.
 
 3. main simulator -- hotOSD_simulator.sh
 
@@ -24,7 +25,7 @@ the hotspot_simulator contains three parts:
 
 4. normal distribution -- my_normal_distribution.cpp
 
-   produce the normal distribution of the probability to visit files
+   produce the normal distribution of the probability to visit files : normal_distribution.csv
 
 More info:
 
