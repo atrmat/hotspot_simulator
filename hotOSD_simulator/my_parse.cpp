@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 #include <vector>
 #include <fstream>
@@ -9,6 +10,7 @@ int osdNum = -1;
 int visitObject[N] = {0};
 int primaryOSD[N] = {0};
 double hotOSDList[N] = {0};
+int timePeriod[N] = {0};
 char tmp[100];
 int main(int argc, char* argv[])
 {
@@ -20,7 +22,8 @@ int main(int argc, char* argv[])
 		cout << "argv[1] is the osd num, should be > 0!"<<endl;
 		return -1;
 	}
-	ifstream hotspot("hotspot.txt", ios::in);
+	// readin hotspot.csv
+	ifstream hotspot("hotspot.csv", ios::in);
 	vector<string> hotspots;
 	string textline0;
 	int i = 0;
@@ -48,6 +51,7 @@ int main(int argc, char* argv[])
 		cout<<*iter0++<<endl;
 	}
 */	
+	//readin data-placement_information.csv
 	ifstream infile("data-placement_information.csv", ios::in);
 	vector<string> results;
 	string word;
@@ -79,13 +83,38 @@ int main(int argc, char* argv[])
 	i--;
 	cout << "i: "<<i--<<endl;
 	infile.close();
+
+	//readin normal distribution
+	ifstream normalDistribution("normal_distribution.csv", ios::in);
+	string textline2;
+	int time = 0;
+	if(normalDistribution.good())
+	{
+		while(!normalDistribution.fail()&&!normalDistribution.eof())
+		{
+			getline(normalDistribution, textline2);
+			strcpy(tmp,textline2.c_str());
+			timePeriod[time] = (int)(atof(tmp)*N);
+			time++;
+		}
+	}
+	timePeriod[time--] = 0;
+	normalDistribution.close();
+	ofstream outf3;
+	outf3<<"timePeriod"<<endl;
+	outf3.open("timePeriod.csv");
+	for (int j = 0; j < time; j++){
+		outf3<<(timePeriod[j])<<endl;
+	}
+	outf3.close();
+
 	//debug	
 	ofstream outf2;
 	outf2.open("visitObject.csv");
 	double count[N] = {0};
 	int hotNum = 0;
 	for (int j = 0; j < i; j++){
-		if (visitObject[j]%11 == 0)
+		//if (visitObject[j]%11 == 0)
 			count[visitObject[j]] = abs(visitObject[j]*rand());
 	}
 	outf2<<"obj,pv"<<endl;
@@ -98,6 +127,7 @@ int main(int argc, char* argv[])
 	outf2<<"total object: "<<i<<" "<<" hot object: "<<hotNum<<" "<<((double)hotNum/i)<<"%"<<endl;
 	outf2.close();
 	hotNum = 0;
+/*
 	for (int j = 0; j < i; j++){
 //		cout << visitObject[j] << endl;
 		cout << "obj " << visitObject[j] << endl; 
@@ -105,19 +135,29 @@ int main(int argc, char* argv[])
 		//hotOSDList[primaryOSD[visitObject[j]]] += visitObject[j]*visitObject[j];
 		cout << " put in primary OSD: " << primaryOSD[visitObject[j]]<<endl;
 	}
-	
-	ofstream outf;
-	outf.open("hotOSD.csv");
-	outf<< "OSD,pv"<<endl;
-	for (int j = 0; j < atoi(argv[1]); j++){
-		outf <<j<<","<<hotOSDList[j]<<endl;
-		if (hotOSDList[j] != 0){
-			hotNum ++;
+*/
+	for (int t = 1; t <= 5; t++){
+		memset(hotOSDList,0,N);
+		hotNum = 0;
+		for (int k = (time/5)*(t-1); k < (time/5)*t; k++){
+			for ( int j = 0; j < timePeriod[k]; j++){
+				hotOSDList[primaryOSD[visitObject[j]]] += count[visitObject[j]];
+			}
 		}
+		ofstream outf;
+		char outfname[20];
+		sprintf(outfname,"%d-%s",t,"hotOSD.csv");
+		outf.open(outfname);
+		outf<< "OSD,pv,"<<t<<endl;
+		for (int j = 0; j < atoi(argv[1]); j++){
+			outf <<j<<","<<hotOSDList[j]<<endl;
+			if (hotOSDList[j] != 0){
+				hotNum ++;
+			}
+		}
+		outf<<"total OSD: "<<atoi(argv[1])<<" "<<"hot OSD: "<<hotNum<<endl;
+		outf.close();
 	}
-	outf<<"total OSD: "<<atoi(argv[1])<<" "<<"hot OSD: "<<hotNum<<endl;
-	outf.close();
-
 
 /*
 	vector<string>::iterator iter = results.begin();

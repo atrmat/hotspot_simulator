@@ -52,9 +52,9 @@ int main(int argc, char * argv[])
 	//outf.open("hotspot.txt");
 	for (int i =1 ;i <= atoi(argv[1]); i++){
 		//tmp = NormalRandom(-(i-avg)*(i-avg)+max*max,1,min,avg);
-		//tmp = NormalRandom(abs(max + min)/2,1,min,max);
+		tmp = NormalRandom(abs(max + min)/2,1,min,max);
 		cout << tmp << endl;
-		outf << tmp <<","<< endl;
+		outf << tmp << endl;
 		//outf << tmp << "," << endl;
 	}
 	outf.close();

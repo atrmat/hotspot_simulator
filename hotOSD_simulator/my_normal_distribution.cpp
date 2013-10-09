@@ -24,7 +24,7 @@ int main(int argc, char * argv[])
 	int tmp = 0;
 	srand((unsigned) time(&t));
 	if(argc < 3){
-		cout << "no enough args! argv[1] is the [num],range from argv[2] to argv[3], argv[4] is the [output file name]" << endl;
+		cout << "no enough args! argv[1] is the [num],range from argv[2] to argv[3], argv[4] is the [output file name] " << endl;
 		return -1;
 	}
 	ofstream outf;
@@ -35,7 +35,8 @@ int main(int argc, char * argv[])
 	int avg = (max+min)/2;
 	for (int i =1 ;i <= atoi(argv[1]); i++){
 		//outf << (int)(Normal(i,avg,1)*10240)<<"," << endl;
-		outf << Normal(i,avg,1) << endl;
+		outf << Normal(i,avg,10) << endl;
+		//outf <<DoubleToInt( Normal(i,avg,10)*10240) << endl;
 	}
 	outf.close();
 	return 0;
