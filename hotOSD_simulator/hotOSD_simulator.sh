@@ -43,7 +43,7 @@ osdmaptool tmp.osdmap --tree > osdtree
 crushtool -i tmp.map --test --num-rep 3 --min_x 0 --max_x 10240 --output-csv
 if [ ! -f "data-placement_information.csv" ]
 then
-	echo "data csv no exist!"
+	echo "data csv no exist!\n"
 	exit 0;
 fi
 ## parse the file
@@ -55,4 +55,15 @@ fi
 
 g++ my_parse.cpp -o my_parse -g
 ./my_parse 128
-
+if [ ! -f "timePeriod.csv" ]
+then
+	echo "timePeriod.csv no exist!\n"
+fi
+if [ ! -f "visitObject.csv" ]
+then
+	echo "visitObject.csv no exist!\n"
+fi
+if [ ! -f "hotOSD.csv" ]
+then
+	echo "hotOSD.csv no exist!\n"
+fi
