@@ -146,7 +146,7 @@ int main(int argc, char* argv[])
 		}
 		ofstream outf;
 		char outfname[20];
-		sprintf(outfname,"%d-%s",t,"hotOSD.csv");
+		sprintf(outfname,"%s-%d%s","hotOSD",t,".csv");
 		outf.open(outfname);
 		outf<< "OSD,pv,"<<t<<endl;
 		for (int j = 0; j < atoi(argv[1]); j++){

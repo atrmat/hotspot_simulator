@@ -63,7 +63,7 @@ if [ ! -f "visitObject.csv" ]
 then
 	echo "visitObject.csv no exist!\n"
 fi
-if [ ! -f "hotOSD.csv" ]
-then
-	echo "hotOSD.csv no exist!\n"
-fi
+#if [ ! -f "hotOSD-*.csv" ]
+#then
+#	echo "hotOSD.csv no exist!\n"
+#fi
