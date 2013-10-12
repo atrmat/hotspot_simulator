@@ -4,6 +4,8 @@ hotspot_simulator
 the hotspot simulator to monitor the OSD cluster's performance.
 the crushtool and osdmaptool must be installed first of all.
 
+crushtool and osdmaptool can be found in /usr/bin/, /usr/sbin/, or /usr/local/bin, /usr/local/sbin .
+
 the hotspot_simulator contains three parts:
 
 1. random number generator -- my_rand_machine.cpp, my_rand_machine1.cpp, my_gaussrand.cpp
